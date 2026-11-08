@@ -6,7 +6,7 @@
 
 🚧 **Status:** in active development. The first working slice (log in → see the bar's stock → update amounts) is done.
 
-<img src="screenshots/bar-stock.png" alt="Bar stock screen" width="320"> <img src="screenshots/update-amount.png" alt="Updating an amount" width="320">
+<img src="bar-stock.png" alt="Bar stock screen" width="320"> <img src="update-amount.png" alt="Updating an amount" width="320">
 
 ---
 
