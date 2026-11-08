@@ -23,6 +23,40 @@ Bars track stock on paper or from memory. Items run out mid-shift, orders go out
 - **Updating amounts** in ¼ steps for bottles and decimals for kg / L. Reasons: update, waste (broken, spilled, staff drink, free to a guest, expired), or correction (managers only).
 - **An append-only change log:** who, when, old → new, and why. Reports will be built from it.
 
+## System design (summary)
+
+The full system description, covering every rule and edge case, is available to reviewers on request. A few highlights:
+
+### Roles
+
+| Can… | Worker | Manager | Owner |
+|---|:---:|:---:|:---:|
+| See and update stock in their venue | ✓ | ✓ | ✓ |
+| Confirm deliveries during their shift | ✓ | ✓ | ✓ |
+| Correct mistakes, set thresholds, send orders | | ✓ | ✓ |
+| Manage shifts and events, see reports | | ✓ | ✓ |
+| Add staff and change their access, see all venues | | | ✓ |
+
+### Delivery flow
+
+```mermaid
+flowchart LR
+    A[Order sent<br/>expected date set] --> B[Staff on shift<br/>notified]
+    B --> C[Staff confirm each item<br/>full / short / missing / damaged]
+    C --> D[Received amounts<br/>added to stock]
+    D --> E{Any problem?}
+    E -- yes --> F[Alert to owner<br/>and managers]
+    E -- no --> G[Order closed]
+```
+
+### Rules that shaped the design
+
+- **Ordering accounts for delivery time.** An item is suggested for ordering when its stock would drop below the threshold before a delivery could arrive, using each supplier's lead time and delivery days.
+- **One full count per shift.** Everyone on shift is reminded; one person claims the count; if the shift ends with no count, managers are notified.
+- **Deliveries need proof.** The worker attaches a photo of the delivery note; short, missing or damaged items stay open on the order and alert the managers.
+- **Order unit ≠ count unit.** Beer is ordered in cases of 24 but counted in bottles; each item stores the conversion.
+- **Prices keep their history,** so last year's reports use last year's prices.
+
 ## Tech stack
 
 Next.js 15 (App Router, Server Actions) · TypeScript · PostgreSQL · Drizzle ORM · Tailwind CSS · Vitest
