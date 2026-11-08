@@ -2,7 +2,7 @@
 
 **Stock management for bars, cafés and restaurants.** Staff keep the bar's stock up to date from their phones; managers see what needs ordering before it runs out; owners see everything across their venues.
 
-> The codebase is private while the product is in development. **Reviewers can get access on request**: contact me via [LinkedIn](https://www.linkedin.com/) or open an issue in this repo.
+> The codebase is private while the product is in development. **Reviewers can get access on request**: contact me via [[LinkedIn](https://www.linkedin.com/)](https://www.linkedin.com/in/hadeel-abbas/) or open an issue in this repo.
 
 🚧 **Status:** in active development. The first working slice (log in → see the bar's stock → update amounts) is done.
 
